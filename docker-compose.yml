@@ -1,0 +1,80 @@
+version: '2'
+
+services:
+  kong-database:
+    image: cassandra:3
+    mem_limit: "6g"
+    memswap_limit: "6g"
+    cpus: 4
+    logging:
+      options:
+        max-size: "50m"
+    networks:
+      - kong-net
+    restart: always
+    ports:
+      - 9042:9042
+
+  kong-migrations:
+    image: kong:latest 
+    command: kong migrations bootstrap
+    environment:
+      - KONG_DATABASE=cassandra
+      - KONG_CASSANDRA_CONTACT_POINTS=kong-database
+    mem_limit: "512m"
+    memswap_limit: "512m"
+    cpus: 0.5
+    logging:
+      options:
+        max-size: "50m"
+    networks:
+      - kong-net
+      
+  kong:
+    image: kong:latest
+    ports:
+      - 8000:8000
+      - 8443:8443
+      - 127.0.0.1:8001:8001
+      - 127.0.0.1:8444:8444
+    environment:
+      - KONG_DATABASE=cassandra
+      - KONG_CASSANDRA_CONTACT_POINTS=kong-database
+      - KONG_PROXY_ACCESS_LOG=/dev/stdout
+      - KONG_ADMIN_ACCESS_LOG=/dev/stdout
+      - KONG_PROXY_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl
+    mem_limit: "2g"
+    memswap_limit: "2g"
+    cpus: 4
+    logging:
+      options:
+        max-size: "50m"
+    networks:
+      - kong-net
+    restart: always
+           
+  konga:
+    image: pantsel/konga:latest
+    mem_limit: "1g"
+    memswap_limit: "1g"
+    cpus: 1
+    logging:
+      options:
+        max-size: "50m"
+    networks:
+      - kong-net
+    environment:
+      - TOKEN_SECRET=ahfdjgjgf79JKLFHJKh978953kgdfjkl
+      - NODE_ENV=development
+    ports:
+      - "1337:1337"
+    restart: always
+
+volumes:
+  cassandra:
+
+networks:
+  kong-net:
+    driver: bridge
