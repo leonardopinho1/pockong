@@ -91,11 +91,7 @@ Pronto! Tudo ok.
 
 Obs: O arquivo DPSP_postman_collection_v1 estão configuradas todos os metodos das API'S de Mock!
 
-A documentação de Kong pode ser encontrada em [https://docs.konghq.com/][kong-docs-url].
-
-### Problemas
-
-Se você tiver problemas ou perguntas sobre esta POC favor entrar em contato com Leonardo Pinho 11 93466-6775
+A documentação de Kong pode ser encontrada em [https://docs.konghq.com/][kong-docs-url]
 
 ##DOCS adicionais
 
