@@ -89,7 +89,7 @@ Valide se as rotas estão ok também.
 
 Pronto! Tudo ok.
 
-Obs: O arquivo DPSP_postman_collection_v1 estão configuradas todos os metodos das API'S de Mock!
+Obs: O arquivo postman_collection_v1 estão configuradas todos os metodos das API'S de Mock!
 
 A documentação de Kong pode ser encontrada em [https://docs.konghq.com/][kong-docs-url]
 
