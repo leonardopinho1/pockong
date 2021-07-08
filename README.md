@@ -1,4 +1,4 @@
-## dpsp-kong
+## kong
 
 # Instalação do Kong no Docker Compose
 
